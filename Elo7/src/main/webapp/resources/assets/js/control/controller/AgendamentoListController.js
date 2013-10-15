@@ -16,7 +16,7 @@ var AgendamentoListController = function($scope, $http, $location, $window) {
 	}
 	
 	$scope.submit = function(){
-		$http.post('agendamentolistagem/listaAgendamentos', $scope.form).success(function(list) {
+		$http.post('#/agendamentolistagem/listaAgendamentos', $scope.form).success(function(list) {
 			$scope.listAgendamentos = list;
         }).error(function() {
         	resetValues();

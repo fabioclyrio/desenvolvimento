@@ -71,7 +71,7 @@ var AgendamentoTransferenciaController = function($scope, $http, $location, $win
 	$scope.submit = function(){
 		$scope.showAccess = true;
 		$scope.showAgendamentoInput = true;
-		$http.post('agendamento/salvarAgendamento', $scope.form).success(function(e) {
+		$http.post('#/agendamento/salvarAgendamento', $scope.form).success(function(e) {
 			if(e != null){
 				alert("Agendamento realizado com sucesso!");
 				$scope.showAgendamentoInput = false;
