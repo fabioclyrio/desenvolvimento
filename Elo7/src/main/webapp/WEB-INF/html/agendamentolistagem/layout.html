@@ -1,0 +1,83 @@
+<div role="list" class="container" id="content-list" ng-controller="AgendamentoListController">
+	<div class="row">
+		<div class="span12">
+			<div>
+				<div class="well" style="background-color: #FDFDFD;">
+					<fieldset>
+	    				<legend>Verificar Agendamentos: 
+	    					<span class="pull-right" ng-show="showAccess"><small>Aguarde, processando...</small></span>
+	    				</legend>
+	    				<div class="input-prepend input-append" style="font-size: 12px;">
+						  <span class="add-on">Sua Conta</span>
+						  <input type="text" ng-model="form.numeroConta" id="origem" placeholder="Conta" required maxlength="7" numbers-only="numbers-only" onkeyup="aplicarMascara('xxxxx-x', this)">
+						</div>
+	    				<hr>
+		            	<button class="btn btn-small btn-primary" type="button" id="btn_form" ng-click="submitForm()">Confirmar</button>
+					</fieldset>
+				</div>
+				<div class="well" style="background-color: #FDFDFD;" ng-show="listAgendamentos.length > 0">
+					<fieldset>
+						
+						<table class="table table-striped">
+							<colgroup span="4"></colgroup>
+							
+							<tbody>
+     							<tr>
+     								<th>Valor</th>
+     								<th>Data Agendamento</th>
+     								<th>Taxa de Operação</th>
+     								<th>Tipo Operação</th>
+     							</tr>
+     							<tr ng-repeat="agendamento in listAgendamentos">
+     								<td>{{agendamento.valor.valorFormatado}}</td>
+     								<td>{{agendamento.dataAgendamento | date:'dd/MM/yyyy'}}</td>
+     								<td>{{agendamento.taxas.taxa.valorFormatado}}</td>
+     								<td>{{agendamento.tipoOperacao}}</td>
+     							</tr>
+     						</tbody>
+     						
+						</table>
+					
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+function aplicarMascara(Mascara, elemento){
+    var elemento = (elemento) ? elemento : document.getElementById(elemento);
+    if(!elemento) return false;
+    function in_array( oque, onde ){
+            for(var i = 0 ; i < onde.length; i++){
+            if(oque == onde[i]){
+                return true;
+            }
+        }
+        return false;
+    }
+    var SpecialChars = [':', '-', '.', '(',')', '/', ',', '_'];
+    var oValue = elemento.value;
+    var novo_valor = '';
+    for( i = 0 ; i < oValue.length; i++){
+        var nowMask = Mascara.charAt(i);
+        var nowLetter = oValue.charAt(i);
+        if(in_array(nowMask, SpecialChars) == true && nowLetter != nowMask){
+            novo_valor +=  nowMask + '' + nowLetter;
+        } else {
+            novo_valor += nowLetter;
+        }
+        var DuplicatedMasks = nowMask+''+nowMask;
+        while (novo_valor.indexOf(DuplicatedMasks) >= 0) {
+            novo_valor = novo_valor.replace(DuplicatedMasks, nowMask);
+        }
+    }
+    if(novo_valor.length <= 7){
+        elemento.value = novo_valor;	
+    } else {
+    	elemento.value = "";
+    	alert("Conta em formato incorreto, por favor verifique!");
+    }
+}
+</script>

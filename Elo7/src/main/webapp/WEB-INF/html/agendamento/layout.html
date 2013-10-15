@@ -1,0 +1,121 @@
+<div role="main" class="container" id="content">
+	
+	<div class="row" ng-show="!showAgendamentoInput">
+		<div class="span12">
+			<div>
+				<div class="well" style="background-color: #FDFDFD;">
+					<fieldset>
+	    				<legend>Agendar transferência entre contas: 
+	    					<span class="pull-right" ng-show="showAccess"><small>Aguarde, processando...</small></span>
+	    				</legend>
+	    				
+						<div class="input-prepend input-append" style="font-size: 12px;">
+						  <span class="add-on">Sua Conta</span>
+						  <input type="text" ng-model="form.contaOrigem" id="origem" placeholder="Conta" required maxlength="7" numbers-only="numbers-only" onkeyup="aplicarMascara('xxxxx-x', this)">
+						</div>
+						
+						<br>
+						
+						<div class="input-prepend input-append" style="font-size: 12px;">
+							<legend>Transferir para:</legend>
+						  <span class="add-on">Conta Destino</span>
+						  <input type="text" ng-model="form.contaDestino" id="destino" placeholder="Conta" required maxlength="7" numbers-only="numbers-only" onkeyup="aplicarMascara('xxxxx-x', this)">
+						</div>
+						<div class="input-prepend input-append" style="font-size: 12px;">
+						  <span class="add-on">Valor</span>
+						  <input type="text" ng-model="form.valorTransferencia" placeholder="Valor" required mask-money="mask-money" maxlength="21">
+						</div>
+						
+						<br>
+						
+						<div class="input-prepend input-append" style="font-size: 12px;">
+							<legend>Agendar para:</legend>
+						  <span class="add-on">Data</span>
+						  <input type="text" readonly="readonly" ng-model="form.dataAgendamento" ng-change="confirmaData()" data-date-format="dd/mm/yyyy" bs-datepicker>
+						  <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+						</div>
+						
+						<div class="input-prepend input-append" style="font-size: 12px;">
+							<legend>Operação de Transferência:</legend>
+						  	<select required ng-model="form.tipoOperacao" ng-options="currOption for currOption in ['A', 'B', 'C', 'D']" >
+						</select>
+						</div>
+						
+						
+						<hr>
+		            	<button class="btn btn-small btn-primary" type="button" id="btn_form" ng-click="submitForm()">Confirmar</button>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row" ng-show="showHasTotalsRoute">
+		<div class="span12">
+			<div>
+				<div>
+					<a href="javascript:void(0);" onclick="goBackToHome();">Voltar</a>
+				</div>
+				<div class="well" style="background-color: #FDFDFD;">
+					<fieldset>
+						<legend>Resultado</legend>
+						<table class="table table-striped">
+							<tr>
+								<td>Tempo total: {{totalsRoute.totalRouteTime}}</td>
+							</tr>
+							<tr>
+								<td>Distância: {{totalsRoute.totalDistance}}</td>
+							</tr>
+							<tr>
+								<td>Custo com combustível: {{totalsRoute.totalFuelCost}}</td>
+							</tr>
+							<tr>
+								<td>Custo com pedágios: {{totalsRoute.totaltoll}}</td>
+							</tr>
+							<tr>
+								<td>Custo final: {{totalsRoute.finalCostToUser}}</td>
+							</tr>
+						</table>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+function aplicarMascara(Mascara, elemento){
+    var elemento = (elemento) ? elemento : document.getElementById(elemento);
+    if(!elemento) return false;
+    function in_array( oque, onde ){
+            for(var i = 0 ; i < onde.length; i++){
+            if(oque == onde[i]){
+                return true;
+            }
+        }
+        return false;
+    }
+    var SpecialChars = [':', '-', '.', '(',')', '/', ',', '_'];
+    var oValue = elemento.value;
+    var novo_valor = '';
+    for( i = 0 ; i < oValue.length; i++){
+        var nowMask = Mascara.charAt(i);
+        var nowLetter = oValue.charAt(i);
+        if(in_array(nowMask, SpecialChars) == true && nowLetter != nowMask){
+            novo_valor +=  nowMask + '' + nowLetter;
+        } else {
+            novo_valor += nowLetter;
+        }
+        var DuplicatedMasks = nowMask+''+nowMask;
+        while (novo_valor.indexOf(DuplicatedMasks) >= 0) {
+            novo_valor = novo_valor.replace(DuplicatedMasks, nowMask);
+        }
+    }
+    if(novo_valor.length <= 7){
+        elemento.value = novo_valor;	
+    } else {
+    	elemento.value = "";
+    	alert("Conta em formato incorreto, por favor verifique!");
+    }
+}
+</script>

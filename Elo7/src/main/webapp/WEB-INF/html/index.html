@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="Elo7App">
+
+<head>
+    <title>Elo7</title>
+    <link rel="stylesheet" href="resources/assets/css/style.css">
+    <link rel="stylesheet" href="resources/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css" />
+</head>
+
+<body>
+	<header class="container">
+		<span class="menu">
+		<a href="javascript:void(0);" onclick="goBackHome();">Início</a>
+		<a href="javascript:void(0);" onclick="verificarAgendamentos();">Verificar Agendamentos</a>
+		</span>
+		
+		<h1>Elo7</h1>
+		<hr>
+	</header>
+   	<div ng-view ng-bind-html="rawHtml" id="container"></div>
+	<footer>
+		<div class="container">
+			© 2013 Elo7 - Todos os direitos reservados
+		</div>
+	</footer>
+</body>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.2.1/jquery-migrate.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular-strap/0.7.4/angular-strap.min.js"></script>
+
+<!-- datepicker -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
+<script src="resources/assets/js/control/locales/bootstrap-datepicker.pt-BR.js"></script>
+<!-- datepicker -->
+
+<script src="resources/assets/js/control/maskmoney.js"></script>
+
+<script src="resources/assets/js/control/app.js"></script>
+<script src="resources/assets/js/control/services.js"></script>
+<script src="resources/assets/js/control/filters.js"></script>
+<script src="resources/assets/js/control/directives.js"></script>
+<script src="resources/assets/js/control/controller/AgendamentoTransferenciaController.js"></script>
+<script src="resources/assets/js/control/controller/AgendamentoListController.js"></script>
+
+<script>
+function goBackHome(){
+	window.location.href = "/";
+}
+//verificar agendamentos
+function verificarAgendamentos() {
+	window.location.href = '#/agendamentolistagem';
+}
+//verificar agendamentos
+</script>
+
+</html>
