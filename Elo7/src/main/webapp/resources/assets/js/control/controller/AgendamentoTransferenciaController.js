@@ -92,7 +92,6 @@ var AgendamentoTransferenciaController = function($scope, $http, $location, $win
 		var mes = value.getMonth()+1;
 		var ano = value.getFullYear();
 		var data = dia + "/" + mes + "/" + ano;
-		alert(data);
 		return data;
     }
     
